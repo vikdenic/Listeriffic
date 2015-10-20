@@ -1,6 +1,7 @@
 package com.nektarlabs.listeriffic;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,9 +13,9 @@ import android.widget.TextView;
 public class TaskAdapter extends BaseAdapter {
 
     private Context mContext;
-    private String[] mTasks;
+    private Task[] mTasks;
 
-    public TaskAdapter(Context context, String[] tasks)
+    public TaskAdapter(Context context, Task[] tasks)
     {
         mContext = context;
         mTasks = tasks;
@@ -22,12 +23,12 @@ public class TaskAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return mTasks.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mTasks[position];
     }
 
     @Override
@@ -41,10 +42,20 @@ public class TaskAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.task_list_item, null);
+            holder = new ViewHolder();
+            holder.taskLabel = (TextView) convertView.findViewById(R.id.taskLabel);
 
+            convertView.setTag(holder);
+        }
+        else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        return null;
+        Task task = mTasks[position];
+        holder.taskLabel.setText(task.getTaskName());
+
+        return convertView;
     }
 
     private static class ViewHolder {

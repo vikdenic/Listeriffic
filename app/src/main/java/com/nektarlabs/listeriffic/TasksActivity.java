@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class TasksActivity extends ListActivity {
 
-    private String tasks[];
+    private Task tasks[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,10 @@ public class TasksActivity extends ListActivity {
 
         Intent intent = getIntent();
         Parcelable parcelables[] = intent.getParcelableArrayExtra(MainActivity.TASKS);
-        tasks = Arrays.copyOf(parcelables, parcelables.length, String[].class);
+        tasks = Arrays.copyOf(parcelables, parcelables.length, Task[].class);
+
+        TaskAdapter adapter = new TaskAdapter(this, tasks);
+        setListAdapter(adapter);
     }
 
     @Override

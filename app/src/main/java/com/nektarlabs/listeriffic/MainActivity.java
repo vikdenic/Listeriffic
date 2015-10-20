@@ -7,17 +7,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TASKS = "TASKS";
-    String mTasks[] = {"Mow lawn", "Wax floor", "Water plants"};
+    Task mTasks[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+
+        Task task1 = new Task("Wax floor");
+        Task task2 = new Task("Mow Lawn");
+        Task task3 = new Task("Water Plants");
+        mTasks = new Task[] {task1, task2, task3};
     }
 
     @Override
